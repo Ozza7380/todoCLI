@@ -2,33 +2,46 @@ const prompt = require(`prompt-sync`)()
 const fs = require(`fs`)
 const { json } = require("stream/consumers")
 
-let data = []
-
-try {
-    data = JSON.parse(fs.readFileSync(`data.json`));
-} catch {
-    data = [];
+function loadData() {
+    try {
+        return JSON.parse(fs.readFileSync(`data.json`));
+    } catch {
+    return [];
+ }
 }
 
-while (true) {
-    console.log(`\n1. Tambah`);
+function saveData(data) {
+    fs.writeFileSync(`data.json`, JSON.stringify(data))
+}
+
+function addTask(data) {
+    const name = prompt((`Nama: `));
+        data.push({name});
+        saveData(data)
+        console.log(`Data ditambahkan`)
+}
+
+function showTask(data) {
+    console.log(data)
+}
+
+function menu() {
+     console.log(`\n1. Tambah`);
     console.log(`2. Lihat`);
     console.log(`3. Keluar`);
-    
-    const pilih = prompt(`PIlih: `)
+}
 
-    if (pilih === `1`) {
-        const name = prompt((`Nama: `));
-        data.push({name});
-        fs.writeFileSync(`data.json`, JSON.stringify(data));
-        console.log(`Data ditambahkan`)
-    }
+function main() {
+    let data = loadData()
 
-    if (pilih === `2`) {
-        console.log(data);
-    }
+while (true) {
+    menu();
+    const pilih = prompt(`Pilih: `)
 
-    if (pilih === `3`) {
-        break;
+    if (pilih === `1`) addTask(data);
+    if (pilih === `2`) showTask(data);
+    if (pilih === `3`) break;
     }
 }
+
+main();
