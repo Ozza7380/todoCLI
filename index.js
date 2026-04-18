@@ -1,6 +1,6 @@
 const prompt = require(`prompt-sync`)();
-const { loadData } = require(`./file`);
-const { addTask, showTask } = require(`./service`)
+const { loadData } = require(`./app/repositories/file`);
+const { addTask, showTask } = require(`./app/services/service`)
 
 function menu() {
     console.log(`\n1. Tambah`);

@@ -1,5 +1,5 @@
 const prompt = require(`prompt-sync`)();
-const { saveData } = require(`./file`)
+const { saveData } = require(`../repositories/file`)
 
 function addTask(data) {
     const name = prompt((`Nama: `));
