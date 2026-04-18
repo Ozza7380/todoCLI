@@ -1,32 +1,9 @@
-const prompt = require(`prompt-sync`)()
-const fs = require(`fs`)
-const { json } = require("stream/consumers")
-
-function loadData() {
-    try {
-        return JSON.parse(fs.readFileSync(`data.json`));
-    } catch {
-    return [];
- }
-}
-
-function saveData(data) {
-    fs.writeFileSync(`data.json`, JSON.stringify(data))
-}
-
-function addTask(data) {
-    const name = prompt((`Nama: `));
-        data.push({name});
-        saveData(data)
-        console.log(`Data ditambahkan`)
-}
-
-function showTask(data) {
-    console.log(data)
-}
+const prompt = require(`prompt-sync`)();
+const { loadData } = require(`./file`);
+const { addTask, showTask } = require(`./service`)
 
 function menu() {
-     console.log(`\n1. Tambah`);
+    console.log(`\n1. Tambah`);
     console.log(`2. Lihat`);
     console.log(`3. Keluar`);
 }
